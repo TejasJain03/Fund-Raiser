@@ -24,14 +24,7 @@ export default function PaymentConfirm() {
         name: "Fund Raising",
         description: "Donation",
         order_id: response.data.id,
-        prefill: {
-          name: "John Doe",
-          email: "john@example.com",
-          contact: "+919876543210",
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
+
         handler: (response) => {
           console.log("Payment successful");
           console.log("Donation submitted:", formData);
