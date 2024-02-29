@@ -1,5 +1,6 @@
 const Campaign = require('../models/campaign')
 const Payment = require('../models/payment')
+const donationMail = require('../utils/donationMail')
 const Donation = require('../models/donation')
 
 exports.makeDonation = async (req, res) => {
@@ -33,6 +34,7 @@ exports.makeDonation = async (req, res) => {
     campaign.status = 'completed'
   }
   campaign.save()
+  donationMail(formData.email, formData.name, formData.amount)
   res.json({ success: true, message: 'Successfully Donated', donation })
   res.redirect('')
 }

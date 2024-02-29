@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
 import { useParams } from "react-router-dom";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 export default function UpdateCampaign() {
   const [formData, setFormData] = useState({
@@ -17,7 +19,6 @@ export default function UpdateCampaign() {
     axiosInstance
       .get(`/getcampaign/${campaignId}`)
       .then((response) => {
-        console.log(response.data.campaign);
         setFormData(response.data.campaign);
       })
       .catch((err) => {
@@ -47,61 +48,102 @@ export default function UpdateCampaign() {
 
   return (
     <>
-      <h2>Update Campaign Details</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Campaign Title:</label>
-          <input
-            type="text"
-            id="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="goalAmount">Goal Amount:</label>
-          <input
-            type="number"
-            id="goalAmount"
-            value={formData.goalAmount}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="startDate">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            value={formData.startDate.slice(0, 10) || ""}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            value={formData.endDate.slice(0, 10) || ""}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">Update Campaign</button>
-        </div>
-      </form>
+      <Navbar />
+      <div className="container mx-auto my-8 p-8 shadow-md rounded-md bg-white">
+        <h2 className="text-3xl font-bold mb-8 text-center">
+          Update Campaign Details
+        </h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-lg font-semibold text-gray-700"
+            >
+              Campaign Title:
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+              className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-lg font-semibold text-gray-700"
+            >
+              Description:
+            </label>
+            <textarea
+              id="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+            ></textarea>
+          </div>
+          <div>
+            <label
+              htmlFor="goalAmount"
+              className="block text-lg font-semibold text-gray-700"
+            >
+              Goal Amount:
+            </label>
+            <input
+              type="number"
+              id="goalAmount"
+              value={formData.goalAmount}
+              onChange={handleChange}
+              required
+              className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="startDate"
+              className="block text-lg font-semibold text-gray-700"
+            >
+              Start Date:
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              value={formData.startDate.slice(0, 10) || ""}
+              onChange={handleChange}
+              required
+              className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="endDate"
+              className="block text-lg font-semibold text-gray-700"
+            >
+              End Date:
+            </label>
+            <input
+              type="date"
+              id="endDate"
+              value={formData.endDate.slice(0, 10) || ""}
+              onChange={handleChange}
+              required
+              className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </div>
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring focus:border-blue-300"
+            >
+              Update Campaign
+            </button>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </>
   );
 }

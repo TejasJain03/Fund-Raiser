@@ -9,6 +9,8 @@ import LoginPage from "./components/LoginPage";
 import SingupPage from "./components/SignUpPage";
 import PaymentConfirm from "./components/PaymentConfirm";
 import UpdateCampaign from "./components/UpdateCampaign";
+import AboutCampaign from "./components/AboutCampaign";
+import UserCampaigns from "./components/UserCampaigns";
 import PaymentSuccess from "./components/PaymentSuccess";
 
 function App() {
@@ -28,6 +30,11 @@ function App() {
             element={<PaymentSuccess />}
           ></Route>
           <Route path="/paymentConfirm" element={<PaymentConfirm />} />
+          <Route
+            path="/aboutcampaign/:campaignId"
+            element={<AboutCampaign />}
+          />
+          <Route path="/usercampaigns" element={<UserCampaigns />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SingupPage />} />
           <Route path="/*" element={<NotFound />} />

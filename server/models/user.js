@@ -10,10 +10,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-  },
+  
   userCampaigns: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Campaign' }],
   dateRegistered: {
     type: Date,

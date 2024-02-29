@@ -1,6 +1,6 @@
 const ExpressError = require('../middleware/ExpressError')
 const bcrypt = require('bcrypt')
-const User=require('../models/user')
+const User = require('../models/user')
 
 const generateToken = require('../utils/generateToken')
 // const { userRegistrationSchema, userLoginSchema } = require('../schema')
@@ -39,14 +39,14 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body
 
-//   const { error } = userLoginSchema.validate({ email, password })
-//   if (error) {
-//     throw new ExpressError(
-//       422,
-//       false,
-//       error.details.map((el) => el.message).join(','),
-//     )
-//   }
+  //   const { error } = userLoginSchema.validate({ email, password })
+  //   if (error) {
+  //     throw new ExpressError(
+  //       422,
+  //       false,
+  //       error.details.map((el) => el.message).join(','),
+  //     )
+  //   }
 
   const user = await User.findOne({ email })
 
@@ -86,6 +86,7 @@ exports.logoutUser = async (req, res) => {
     'Cache-Control',
     'no-store, no-cache, must-revalidate, proxy-revalidate',
   )
+
 
   res.status(200).send({ success: true, message: 'Logged out successfully!' })
 }

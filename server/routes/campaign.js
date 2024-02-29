@@ -10,6 +10,16 @@ route.get(
   catchAsync(campaignControllers.getCampaign),
 )
 route.get('/getallcampaign', catchAsync(campaignControllers.getAllCampaigns))
+route.get(
+  '/createcampaign',
+  authMiddleware,
+  catchAsync(campaignControllers.getcreateCampaign),
+)
+route.get(
+  '/getusercampaign',
+  authMiddleware,
+  catchAsync(campaignControllers.getUserCampaigns),
+)
 route.post(
   '/createcampaign',
   authMiddleware,

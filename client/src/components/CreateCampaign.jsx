@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateCampaign() {
   const [formData, setFormData] = useState({
@@ -9,8 +11,10 @@ export default function CreateCampaign() {
     goalAmount: "",
     startDate: "",
     endDate: "",
-    category: "  ",
+    category: "",
+    image: null,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.type === "file") {
@@ -29,99 +33,163 @@ export default function CreateCampaign() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Campaign created:", formData);
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
+
     axiosInstance
-      .post("/createcampaign", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post("/createcampaign", formDataToSend)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.success);
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        console.log(err);
+        navigate("/login");
       });
   };
+
+  useEffect(() => {
+    axiosInstance
+      .get("/createcampaign")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/login");
+      });
+  }, []);
 
   return (
     <>
       <Navbar />
-      <h2>Create a Fundraising Campaign</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Campaign Title:</label>
-          <input
-            type="text"
-            id="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="category">Category:</label>
-          <input
-            type="text"
-            id="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="goalAmount">Goal Amount:</label>
-          <input
-            type="number"
-            id="goalAmount"
-            value={formData.goalAmount}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="startDate">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            value={formData.startDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            value={formData.endDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="image">Image:</label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*s"
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <button type="submit">Create Campaign</button>
-        </div>
-      </form>
+      <div className="container mx-auto my-8 p-8 bg-white shadow-md rounded-md">
+        <h2 className="text-3xl font-bold mb-4">Create a Campaign</h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+          <div>
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Campaign Title:
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+              className="mt-1 p-2 border rounded-md w-full"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Description:
+            </label>
+            <textarea
+              id="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              rows="4"
+              className="mt-1 p-2 border rounded-md w-full"
+            ></textarea>
+          </div>
+          <div>
+            <label
+              htmlFor="category"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Category:
+            </label>
+            <input
+              type="text"
+              id="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+              className="mt-1 p-2 border rounded-md w-full"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="goalAmount"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Goal Amount:
+            </label>
+            <input
+              type="number"
+              id="goalAmount"
+              value={formData.goalAmount}
+              onChange={handleChange}
+              required
+              className="mt-1 p-2 border rounded-md w-full"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="startDate"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Start Date:
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              value={formData.startDate}
+              onChange={handleChange}
+              required
+              className="mt-1 p-2 border rounded-md w-full"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="endDate"
+              className="block text-sm font-medium text-gray-700"
+            >
+              End Date:
+            </label>
+            <input
+              type="date"
+              id="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
+              required
+              className="mt-1 p-2 border rounded-md w-full"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Image:
+            </label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleChange}
+              required
+              className="mt-1 p-2 border rounded-md w-full"
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              className="bg-yellow text-white px-4 py-2 rounded-md "
+            >
+              Create Campaign
+            </button>
+          </div>
+        </form>
+      </div>
+      <Footer />
     </>
   );
 }

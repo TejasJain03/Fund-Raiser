@@ -4,7 +4,12 @@ const User = require('../models/user')
 exports.getCampaign = async (req, res) => {
   const { campaignId } = req.params
 
-  const campaign = await Campaign.findById(campaignId)
+  const campaign = await Campaign.findById(campaignId).populate({
+    path: 'reviews',
+    populate: {
+      path: 'user',
+    },
+  })
 
   if (!campaign) {
     return res
@@ -21,6 +26,16 @@ exports.getAllCampaigns = async (req, res) => {
   res.json({ success: true, campaigns })
 }
 
+exports.getcreateCampaign = async (req, res) => {
+  const userId = req.user._id
+  if (userId) {
+    console.log(userId)
+    res.json({ success: true })
+  } else {
+    res.json({ success: false })
+  }
+}
+
 exports.createCampaign = async (req, res) => {
   const {
     title,
@@ -32,7 +47,7 @@ exports.createCampaign = async (req, res) => {
   } = req.body
 
   const image = req.file
-  
+
   if (image) {
     const newCampaign = new Campaign({
       title,
@@ -61,6 +76,14 @@ exports.createCampaign = async (req, res) => {
 
     res.json({ success: true, message: 'Successfully Added', newCampaign })
   }
+}
+
+exports.getUserCampaigns = async (req, res) => {
+  const userId = req.user._id
+
+  const userCampaigns = await Campaign.find({ user: userId })
+
+  res.status(200).json({ campaigns: userCampaigns })
 }
 
 exports.updateCampaign = async (req, res) => {
