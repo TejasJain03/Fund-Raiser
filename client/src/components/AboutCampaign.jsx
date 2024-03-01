@@ -10,20 +10,12 @@ export default function AboutCampaign() {
   const [campaign, setCampaign] = useState();
   const [reviews, setReviews] = useState();
   const [userId] = useState(localStorage.getItem("userId"));
-  const [button, setButton] = useState(false);
+  const [button] = useState(false);
 
   useEffect(() => {
     axiosInstance
       .get(`/getcampaign/${campaignId}`)
       .then((response) => {
-        console.log("User ID from localStorage:", userId);
-        console.log("User ID from campaign data:", response.data.campaign.user);
-
-        const campaignUserId = response.data.campaign.user.toString();
-        if (userId && userId === campaignUserId) {
-          setButton(true);
-        }
-
         setCampaign(response.data.campaign);
         setReviews(response.data.campaign.reviews);
       })
@@ -33,12 +25,10 @@ export default function AboutCampaign() {
   }, [campaignId, userId]);
 
   const handleUpdateCampaign = () => {
-    // Placeholder: Handle update logic here
     console.log("Update campaign");
   };
 
   const handleDeleteCampaign = () => {
-    // Placeholder: Handle delete logic here
     console.log("Delete campaign");
   };
 
@@ -55,9 +45,9 @@ export default function AboutCampaign() {
                 className="w-full h-[500px] object-cover rounded-md shadow-md"
               />
             </div>
-            <div className="md:w-1/2 md:ml-4 pl-4 lg:pl-20">
+            <div className="md:w-1/2 md:ml-4 pl-4 ">
               <h1 className="text-5xl font-bold mb-6">{campaign.title}</h1>
-              <p className="text-gray-800 mb-4">
+              <p className="text-gray-800 mb-4 ">
                 <span className="font-bold">Category:</span> {campaign.category}
               </p>
               <p className="text-gray-800 mb-4">

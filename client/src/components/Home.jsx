@@ -5,13 +5,12 @@ import Footer from "./Footer";
 
 export default function Home() {
   // const navigate = useNavigate();
-  const Img = "https://source.unsplash.com/800x600/?fundraising";
+  const Img = "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   return (
     <>
       <Navbar />
       <div className="w-full h-[60vh] flex flex-col md:flex-row">
-        {/* Image Section */}
         <div className="w-full md:w-1/2 h-[50vh] md:h-full p-4 flex items-center">
           <img
             src={Img}

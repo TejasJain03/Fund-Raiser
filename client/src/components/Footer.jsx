@@ -8,10 +8,10 @@ const Footer = () => {
         </p>
         <div className="mt-4">
           <a
-            href="mailto:support@example.com"
+            href="mailto:support@pledgenow.com"
             className="text-blue-500 hover:underline"
           >
-            Email: support@example.com
+            Email: support@pledgenow.com
           </a>
         </div>
         <div className="mt-2">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { useLocation, useParams } from "react-router-dom";
 import axiosInstance from "../axios";
 import { useLocation } from "react-router-dom";
 
@@ -62,11 +61,21 @@ export default function PaymentConfirm() {
   }, []);
 
   return (
-    <button
-      onClick={createOrder}
-      className="bg-darkBlue text-white ml-4 px-4 py-2 rounded "
-    >
-      {loading ? "Processing ..." : "Make Donation"}
-    </button>
+    <div className="flex flex-col items-center mt-8">
+      <p className="mt-2 text-gray-700 cursor-pointer">Are you sure?</p>
+      <button
+        onClick={createOrder}
+        className="bg-darkBlue text-white px-4 py-2 rounded transition duration-300 ease-in-out hover:bg-blue-800 focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
+      >
+        {loading ? (
+          <>
+            <span className="mr-2">Processing...</span>
+            <span className="animate-spin">&#129312;</span>
+          </>
+        ) : (
+          "Donate Now"
+        )}
+      </button>
+    </div>
   );
 }

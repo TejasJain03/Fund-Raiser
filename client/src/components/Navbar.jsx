@@ -5,9 +5,6 @@ export default function Navbar() {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   const handleLogout = () => {
-    // Clear localStorage and navigate to the login page
-    localStorage.setItem('isLoggedIn',false)
-    localStorage.removeItem('userId');
     navigate("/login");
   };
 
@@ -20,7 +17,7 @@ export default function Navbar() {
             navigate("/");
           }}
         >
-          LOGO
+          PledgeNow
         </h1>
         <h1
           className="text-white w-full text-center cursor-pointer"

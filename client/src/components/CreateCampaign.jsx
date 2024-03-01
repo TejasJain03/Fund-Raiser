@@ -3,6 +3,8 @@ import axiosInstance from "../axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CreateCampaign() {
   const [formData, setFormData] = useState({
@@ -32,7 +34,8 @@ export default function CreateCampaign() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Campaign created:", formData);
+    toast.info("Creating Campaign...", { autoClose: false }); 
+
     const formDataToSend = new FormData();
     for (const key in formData) {
       formDataToSend.append(key, formData[key]);
@@ -42,9 +45,12 @@ export default function CreateCampaign() {
       .post("/createcampaign", formDataToSend)
       .then((response) => {
         console.log(response.data.success);
+        toast.success("Campaign created successfully!");
+        navigate("/usercampaigns"); 
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error creating campaign. Please try again."); 
         navigate("/login");
       });
   };
@@ -59,7 +65,7 @@ export default function CreateCampaign() {
         console.log(err);
         navigate("/login");
       });
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -190,6 +196,7 @@ export default function CreateCampaign() {
         </form>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }

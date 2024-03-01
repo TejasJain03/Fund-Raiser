@@ -17,7 +17,7 @@ exports.getCampaign = async (req, res) => {
       .json({ success: false, message: 'Campaign not found' })
   }
 
-  res.json({ success: true, campaign })
+  res.json({ success: true, campaign})
 }
 
 exports.getAllCampaigns = async (req, res) => {

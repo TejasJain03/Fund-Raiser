@@ -12,6 +12,7 @@ import UpdateCampaign from "./components/UpdateCampaign";
 import AboutCampaign from "./components/AboutCampaign";
 import UserCampaigns from "./components/UserCampaigns";
 import PaymentSuccess from "./components/PaymentSuccess";
+import UserAboutCampaign from "./components/UserAboutEvent";
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
           />
           <Route path="/usercampaigns" element={<UserCampaigns />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/useraboutcampaign/:campaignId"
+            element={<UserAboutCampaign />}
+          />
           <Route path="/register" element={<SingupPage />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>

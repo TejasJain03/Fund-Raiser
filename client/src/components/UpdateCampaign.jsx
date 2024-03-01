@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function UpdateCampaign() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -12,6 +15,7 @@ export default function UpdateCampaign() {
     startDate: "",
     endDate: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const { campaignId } = useParams();
 
@@ -35,14 +39,24 @@ export default function UpdateCampaign() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Campaign details updated:", formData);
+    setLoading(true);
+
     axiosInstance
       .put(`/updatecampaign/${campaignId}`, formData)
       .then((response) => {
         console.log(response.data);
+        toast.success("Campaign details updated!", {
+          onClose: () => {
+            navigate(`/useraboutcampaign/${campaignId}`);
+          },
+        });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        toast.error("Failed to update campaign details.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -136,14 +150,18 @@ export default function UpdateCampaign() {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring focus:border-blue-300"
+              className={`bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring focus:border-blue-300 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
             >
-              Update Campaign
+              {loading ? "Updating..." : "Update Campaign"}
             </button>
           </div>
         </form>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }

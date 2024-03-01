@@ -35,18 +35,18 @@ export default function Donation() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto my-8 p-8 min-h-[60vh] grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="md:w-1/2 text-center ">
+      <div className="container mx-auto  my-8 min-h-[60vh] grid grid-cols-1 md:grid-cols-2 gap-10 ">
+        <div className="md:w-[90%]  ">
           {campaignData ? (
             <>
-              <h2 className="text-3xl font-bold mb-4 text-center">
+              <h2 className="text-3xl font-bold mb-8 text-center">
                 {campaignData.title}
               </h2>
-              <p className="text-xl text-gray-800 mb-2">
+              <p className="text-xl text-gray-800 mb-4">
                 <span className="font-bold">Description:</span>{" "}
                 {campaignData.description}
               </p>
-              <p className="text-xl text-gray-800 mb-2">
+              <p className="text-xl text-gray-800 mb-4">
                 <span className="font-bold">Category:</span>{" "}
                 {campaignData.category}
               </p>

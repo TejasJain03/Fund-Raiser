@@ -26,8 +26,6 @@ export default function LoginPage() {
       .post("/login", formData)
       .then((response) => {
         console.log(response.data);
-        localStorage.setItem("isLoggedIn", true);
-        localStorage.setItem("userId", response.data._id);
         navigate("/usercampaigns");
       })
       .catch((err) => {

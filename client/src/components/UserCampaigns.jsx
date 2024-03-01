@@ -25,15 +25,13 @@ export default function UserCampaigns() {
         console.log(err);
         navigate("/login");
       });
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     axiosInstance
       .get("/logout")
       .then((response) => {
         console.log(response.data);
-        localStorage.set("isLoggedIn", false);
-        localStorage.removeItem("userId");
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +85,7 @@ export default function UserCampaigns() {
                 <button
                   className="bg-yellow text-white px-4 py-2 rounded-md hover:bg-yellow-600"
                   onClick={() => {
-                    navigate(`/aboutcampaign/${campaign._id}`);
+                    navigate(`/useraboutcampaign/${campaign._id}`);
                   }}
                 >
                   Know More
