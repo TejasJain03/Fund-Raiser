@@ -41,6 +41,10 @@ app.use('/api', donationRoutes)
 app.use('/api', reveiwRoutes)
 app.use('/api', paymentRoutes)
 
+app.get('/',()=>{
+  res.send("Hello")
+})
+
 app.all('*', (req, res, next) => {
   try {
     new ExpressError(404, false, 'Page not found')
