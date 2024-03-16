@@ -9,7 +9,7 @@ const isLoggedIn = async (req, res, next) => {
     return res.status(401).json({
       success: false,
       status: 'logout',
-      message: ' Please Login!!!',
+      message: 'Please Login!!!',
     })
   }
   const data = jwt.verify(token, process.env.JWT_SECRET)
