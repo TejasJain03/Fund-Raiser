@@ -2,6 +2,10 @@ import { useState } from "react";
 import axiosInstance from "../axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -10,6 +14,7 @@ export default function SignUpPage() {
     password: "",
     confirmPassword: "",
   });
+  const navigate=useNavigate()
 
   const handleChange = (e) => {
     setFormData({
@@ -25,11 +30,18 @@ export default function SignUpPage() {
       .post("/register", formData)
       .then((response) => {
         console.log(response.data);
+        toast.success("Signup successful!", {
+          onClose: () => {
+            navigate("/login");
+          }
+        });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error signing up. Please try again.");
       });
   };
+  
 
   return (
     <>
@@ -98,6 +110,7 @@ export default function SignUpPage() {
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }
