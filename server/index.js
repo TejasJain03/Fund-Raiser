@@ -25,8 +25,8 @@ connectDB()
 const PORT = process.env.PORT || 8000
 
 const corsOptions = {
-  // origin: 'https://pledgenowfundraiser.netlify.app',
-  origin:'http://localhost:5173',
+  origin: 'https://pledgenowfundraiser.netlify.app',
+  // origin:'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }
@@ -42,8 +42,12 @@ app.use('/api', donationRoutes)
 app.use('/api', reveiwRoutes)
 app.use('/api', paymentRoutes)
 
-app.get('/',(req,res)=>{
-  res.send("Hello")
+app.get('/', (req, res) => {
+  res.send('Hello')
+})
+
+app.get('/api', (req, res) => {
+  res.send('test')
 })
 
 app.all('*', (req, res, next) => {
