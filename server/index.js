@@ -41,7 +41,7 @@ app.use('/api', donationRoutes)
 app.use('/api', reveiwRoutes)
 app.use('/api', paymentRoutes)
 
-app.get('/',()=>{
+app.get('/',(res,req)=>{
   res.send("Hello")
 })
 
