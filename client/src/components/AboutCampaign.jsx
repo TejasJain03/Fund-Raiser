@@ -9,28 +9,21 @@ export default function AboutCampaign() {
   const navigate = useNavigate();
   const [campaign, setCampaign] = useState();
   const [reviews, setReviews] = useState();
-  const [userId] = useState(localStorage.getItem("userId"));
-  const [button] = useState(false);
 
   useEffect(() => {
     axiosInstance
-      .get(`/getcampaign/${campaignId}`)
-      .then((response) => {
-        setCampaign(response.data.campaign);
+    .get(`/getcampaign/${campaignId}`)
+    .then((response) => {
+      console.log(response.data.campaign.reviews[2]);
+      setCampaign(response.data.campaign);
         setReviews(response.data.campaign.reviews);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [campaignId, userId]);
+  }, [campaignId]);
 
-  const handleUpdateCampaign = () => {
-    console.log("Update campaign");
-  };
-
-  const handleDeleteCampaign = () => {
-    console.log("Delete campaign");
-  };
+  
 
   return (
     <>
@@ -78,22 +71,6 @@ export default function AboutCampaign() {
               >
                 Donate
               </button>
-              {button && (
-                <>
-                  <button
-                    className="bg-blue text-white px-4 py-2 rounded-md mr-4"
-                    onClick={handleUpdateCampaign}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="bg-red text-white px-4 py-2 rounded-md"
-                    onClick={handleDeleteCampaign}
-                  >
-                    Delete
-                  </button>
-                </>
-              )}
             </div>
           </div>
         ) : (
@@ -114,12 +91,12 @@ export default function AboutCampaign() {
                   <div className="flex-shrink-0">
                     <img
                       src="https://via.placeholder.com/32"
-                      alt={review.user.name}
+                      alt={review.user}
                       className="w-8 h-8 rounded-full mr-3"
                     />
                   </div>
                   <p className="text-gray-600">
-                    <span className="font-bold">{review.user.name}</span> on{" "}
+                    <span className="font-bold">{review.user}</span> on{" "}
                     {review.datePosted.slice(0, 10) || ""}
                   </p>
                 </div>

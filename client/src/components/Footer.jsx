@@ -18,7 +18,7 @@ const Footer = () => {
           <p className="text-gray-500">Mangalore</p>
         </div>
         <div className="mt-4 text-gray-500">
-          &copy; 2023 Your Company Name. All rights reserved.
+          &copy; 2024 PledgeNow. All rights reserved.
         </div>
       </div>
     </footer>

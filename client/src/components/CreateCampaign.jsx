@@ -3,7 +3,7 @@ import axiosInstance from "../axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function CreateCampaign() {
@@ -16,6 +16,7 @@ export default function CreateCampaign() {
     category: "",
     image: null,
   });
+  const [creatingCampaign, setCreatingCampaign] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,7 +35,7 @@ export default function CreateCampaign() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast.info("Creating Campaign...", { autoClose: false }); 
+    setCreatingCampaign(true); // Set state to indicate campaign creation is ongoing
 
     const formDataToSend = new FormData();
     for (const key in formData) {
@@ -45,13 +46,19 @@ export default function CreateCampaign() {
       .post("/createcampaign", formDataToSend)
       .then((response) => {
         console.log(response.data.success);
-        toast.success("Campaign created successfully!");
-        navigate("/usercampaigns"); 
+        toast.success("Campaign created successfully!", {
+          onClose: () => {
+            navigate("/usercampaigns");
+          },
+        });
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error creating campaign. Please try again."); 
-        navigate("/login");
+        toast.error("Error creating campaign. Please try again.");
+        // navigate("/login");
+      })
+      .finally(() => {
+        setCreatingCampaign(false); // Reset state after campaign creation process is completed
       });
   };
 
@@ -188,9 +195,10 @@ export default function CreateCampaign() {
           <div>
             <button
               type="submit"
+              disabled={creatingCampaign} 
               className="bg-yellow text-white px-4 py-2 rounded-md "
             >
-              Create Campaign
+              {creatingCampaign ? "Creating Campaign..." : "Create Campaign"}
             </button>
           </div>
         </form>

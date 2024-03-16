@@ -12,37 +12,37 @@ export default function UserAboutCampaign() {
   const [campaign, setCampaign] = useState();
   const [reviews, setReviews] = useState();
 
-  useEffect(() => {
-    axiosInstance
-      .get(`/getcampaign/${campaignId}`)
-      .then((response) => {
-        setCampaign(response.data.campaign);
-        setReviews(response.data.campaign.reviews);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [campaignId]);
+useEffect(() => {
+  axiosInstance
+    .get(`/getcampaign/${campaignId}`)
+    .then((response) => {
+      setCampaign(response.data.campaign);
+      setReviews(response.data.campaign.reviews);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, [campaignId]);
 
-  const handleUpdateCampaign = (campaignId) => {
-    navigate(`/updatecampaign/${campaignId}`)
-  };
+const handleUpdateCampaign = (campaignId) => {
+  navigate(`/updatecampaign/${campaignId}`)
+};
 
-  const handleDeleteCampaign = (campaignId) => {
-    axiosInstance.delete(`/deletecampaign/${campaignId}`)
-      .then((response) => {
-        console.log("Delete response:", response.data);
-        toast.success("Campaign deleted successfully!", {
-          onClose: () => {
-            navigate("/usercampaigns");
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Delete error:", error);
-        toast.error("Failed to delete the campaign.");
+const handleDeleteCampaign = (campaignId) => {
+  axiosInstance.delete(`/deletecampaign/${campaignId}`)
+    .then((response) => {
+      console.log("Delete response:", response.data);
+      toast.success("Campaign deleted successfully!", {
+        onClose: () => {
+          navigate("/usercampaigns");
+        }
       });
-  };
+    })
+    .catch((error) => {
+      console.error("Delete error:", error);
+      toast.error("Failed to delete the campaign.");
+    });
+};
 
   return (
     <>
@@ -164,7 +164,7 @@ export default function UserAboutCampaign() {
                     />
                   </div>
                   <p className="text-gray-600">
-                    <span className="font-bold">{review.user.name}</span> on{" "}
+                    <span className="font-bold">{review.user}</span> on{" "}
                     {review.datePosted.slice(0, 10) || ""}
                   </p>
                 </div>

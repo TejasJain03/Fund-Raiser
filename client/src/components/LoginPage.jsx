@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import axiosInstance from "../axios";
 import Footer from "./Footer";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -25,11 +27,15 @@ export default function LoginPage() {
     axiosInstance
       .post("/login", formData)
       .then((response) => {
-        console.log(response.data);
-        navigate("/usercampaigns");
+        toast.success(response.data.message, {
+          onClose: () => {
+            navigate("/usercampaigns");
+          },
+        });
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.message);
+        console.log(err.response.data.message);
       });
   };
 
@@ -93,6 +99,7 @@ export default function LoginPage() {
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 }

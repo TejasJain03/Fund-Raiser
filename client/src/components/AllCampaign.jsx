@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
 import { useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
 
 export default function AllCampaign() {
   const [campaigns, setCampaigns] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(Cookie.get("access_token"));
     axiosInstance
       .get("/getallcampaign")
       .then((response) => {

@@ -3,20 +3,17 @@ const User = require('../models/user')
 
 exports.getCampaign = async (req, res) => {
   const { campaignId } = req.params
-
   const campaign = await Campaign.findById(campaignId).populate({
     path: 'reviews',
     populate: {
       path: 'user',
     },
   })
-
   if (!campaign) {
     return res
       .status(404)
       .json({ success: false, message: 'Campaign not found' })
   }
-
   res.json({ success: true, campaign})
 }
 

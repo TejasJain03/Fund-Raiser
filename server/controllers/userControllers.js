@@ -3,23 +3,10 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 
 const generateToken = require('../utils/generateToken')
-// const { userRegistrationSchema, userLoginSchema } = require('../schema')
 const jwt = require('jsonwebtoken')
 
 exports.registerUser = async (req, res) => {
   const { name, email, password } = req.body
-  //   const { error, value } = userRegistrationSchema.validate(
-  //     { name, email, password, phoneNumber },
-  //     { abortEarly: false },
-  //   )
-  //   if (error) {
-  //     // res.json(error.details.map((el) => el.message).join(','))
-  //     throw new ExpressError(
-  //       422,
-  //       false,
-  //       error.details.map((el) => el.message).join(','),
-  //     )
-  //   } else {
   const userExists = await User.findOne({ email })
 
   if (userExists) {
@@ -34,19 +21,9 @@ exports.registerUser = async (req, res) => {
   })
   res.send({ success: true, user })
 }
-// }
 
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body
-
-  //   const { error } = userLoginSchema.validate({ email, password })
-  //   if (error) {
-  //     throw new ExpressError(
-  //       422,
-  //       false,
-  //       error.details.map((el) => el.message).join(','),
-  //     )
-  //   }
 
   const user = await User.findOne({ email })
 

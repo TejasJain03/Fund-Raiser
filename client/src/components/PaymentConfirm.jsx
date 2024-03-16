@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function PaymentConfirm() {
   const [key, setKey] = useState();
   const location = useLocation();
   const { formData, campaignId } = location.state;
   const [loading, setLoading] = useState(false);
-  const campaign = campaignId.campaignId;
+  const navigate = useNavigate();
 
   const createOrder = async () => {
     try {
@@ -28,9 +28,12 @@ export default function PaymentConfirm() {
           console.log("Payment successful");
           console.log("Donation submitted:", formData);
           axiosInstance
-            .post(`/${campaign}/makedonation`, { formData, response })
+            .post(`/${campaignId}/makedonation`, { formData, response })
             .then((response) => {
-              console.log(response.data);
+              console.log(response.data.donation);
+              navigate(
+                `/paymentsuccess/${campaignId}/${response.data.donation.name}/${response.data.payment.payment_id}`
+              );
             })
             .catch((err) => {
               console.log(err.response.data);
@@ -52,7 +55,7 @@ export default function PaymentConfirm() {
       .get("/get-key")
       .then((response) => {
         setKey(response.data.key);
-        console.log(campaign);
+        console.log(campaignId);
         console.log(formData.amount);
       })
       .catch((err) => {

@@ -27,7 +27,7 @@ function App() {
           />
           <Route path="/createcampaign" element={<CreateCampaign />} />
           <Route
-            path="/paymentsuccess/:reference"
+            path="/paymentsuccess/:campaignId/:name/:reference"
             element={<PaymentSuccess />}
           ></Route>
           <Route path="/paymentConfirm" element={<PaymentConfirm />} />
