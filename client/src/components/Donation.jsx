@@ -32,6 +32,7 @@ export default function Donation() {
     });
   };
 
+  
   return (
     <>
       <Navbar />
@@ -59,6 +60,7 @@ export default function Donation() {
             <p>Loading campaign data...</p>
           )}
         </div>
+
 
         <div className="md:w-full">
           <h2 className="text-2xl font-bold mb-8 text-center">

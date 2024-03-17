@@ -12,10 +12,10 @@ export default function AboutCampaign() {
 
   useEffect(() => {
     axiosInstance
-    .get(`/getcampaign/${campaignId}`)
-    .then((response) => {
-      console.log(response.data.campaign.reviews[2]);
-      setCampaign(response.data.campaign);
+      .get(`/getcampaign/${campaignId}`)
+      .then((response) => {
+        console.log(response.data.campaign.reviews[2]);
+        setCampaign(response.data.campaign);
         setReviews(response.data.campaign.reviews);
       })
       .catch((err) => {
@@ -23,7 +23,16 @@ export default function AboutCampaign() {
       });
   }, [campaignId]);
 
-  
+  const isCampaignCompleted = () => {
+    return campaign?.status === "completed";
+  };
+
+  // Function to check if the current date is past the campaign end date
+  const isPastEndDate = () => {
+    const currentDate = new Date();
+    const endDate = new Date(campaign?.endDate);
+    return currentDate > endDate;
+  };
 
   return (
     <>
@@ -63,14 +72,20 @@ export default function AboutCampaign() {
                 <span className="font-bold">End Date:</span>{" "}
                 {new Date(campaign.endDate).toLocaleDateString()}
               </p>
-              <button
-                className="bg-yellow text-white px-4 py-2 rounded-md "
-                onClick={() => {
-                  navigate(`/makedonation/${campaign._id}`);
-                }}
-              >
-                Donate
-              </button>
+              {!isCampaignCompleted() && !isPastEndDate() ? (
+                <button
+                  className="bg-yellow text-white px-4 py-2 rounded-md"
+                  onClick={() => {
+                    navigate(`/makedonation/${campaign._id}`);
+                  }}
+                >
+                  Donate
+                </button>
+              ) : (
+                <p className="text-red-800 font-bold">
+                  Donations are currently closed.
+                </p>
+              )}
             </div>
           </div>
         ) : (
