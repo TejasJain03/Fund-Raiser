@@ -56,10 +56,12 @@ export default function AboutCampaign() {
                 <span className="font-bold">Goal Amount:</span> $
                 {campaign.goalAmount}
               </p>
+               {!isCampaignCompleted() || !isPastEndDate() && (
               <p className="text-gray-800 mb-4">
                 <span className="font-bold">Current Amount:</span> $
                 {campaign.currentAmount}
               </p>
+               )}
               <p className="text-gray-800 mb-6">
                 <span className="font-bold">Description:</span>{" "}
                 {campaign.description}
@@ -72,7 +74,7 @@ export default function AboutCampaign() {
                 <span className="font-bold">End Date:</span>{" "}
                 {new Date(campaign.endDate).toLocaleDateString()}
               </p>
-              {!isCampaignCompleted() && !isPastEndDate() ? (
+              {!isCampaignCompleted() || !isPastEndDate() ? (
                 <button
                   className="bg-yellow text-white px-4 py-2 rounded-md"
                   onClick={() => {

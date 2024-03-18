@@ -9,7 +9,7 @@ function PaymentSuccess() {
 
   const handleSubmitReview = (name) => {
     axiosInstance
-      .post(`/${campaignId}/givereview`, { ...review, name: name })
+      .post(`/${campaignId}/givereview`, {reviewBody:review,name:name})
       .then(() => {
         navigate("/");
       })
@@ -21,7 +21,7 @@ function PaymentSuccess() {
   useEffect(() => {
     console.log(reference);
     console.log(name);
-  }, []);
+  }, [name, reference]);
 
   return (
     <div className="flex justify-center items-center h-screen">
