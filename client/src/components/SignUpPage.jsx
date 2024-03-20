@@ -14,7 +14,8 @@ export default function SignUpPage() {
     password: "",
     confirmPassword: "",
   });
-  const navigate=useNavigate()
+  const [registering, setRegistering] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -25,6 +26,7 @@ export default function SignUpPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setRegistering(true); // Set registering state to true while registering
     console.log("Signup submitted:", formData);
     axiosInstance
       .post("/register", formData)
@@ -39,6 +41,9 @@ export default function SignUpPage() {
       .catch((err) => {
         console.log(err);
         toast.error("Error signing up. Please try again.");
+      })
+      .finally(() => {
+        setRegistering(false); // Reset registering state after registration attempt
       });
   };
   
@@ -101,9 +106,12 @@ export default function SignUpPage() {
             <div className="w-full">
               <button
                 type="submit"
-                className="bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring focus:border-blue-300"
+                className={`bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring focus:border-blue-300 ${
+                  registering ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={registering}
               >
-                Create
+                {registering ? "Registering..." : "Create"}
               </button>
             </div>
           </form>

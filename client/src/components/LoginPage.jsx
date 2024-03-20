@@ -13,6 +13,7 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+  const [loggingIn, setLoggingIn] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -23,7 +24,7 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login submitted:", formData);
+    setLoggingIn(true); 
     axiosInstance
       .post("/login", formData)
       .then((response) => {
@@ -35,7 +36,9 @@ export default function LoginPage() {
       })
       .catch((err) => {
         toast.error(err.response.data.message);
-        console.log(err.response.data.message);
+      })
+      .finally(() => {
+        setLoggingIn(false); 
       });
   };
 
@@ -81,9 +84,12 @@ export default function LoginPage() {
             <div className="w-full">
               <button
                 type="submit"
-                className="bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring"
+                className={`bg-yellow text-white px-6 py-3 rounded-full focus:outline-none focus:ring ${
+                  loggingIn ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loggingIn}
               >
-                Login
+                {loggingIn ? "Logging in..." : "Login"}
               </button>
             </div>
           </form>

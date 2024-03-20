@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AllCampaign() {
   const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(true); // Introduce loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +16,9 @@ export default function AllCampaign() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false once campaigns are loaded or if there's an error
       });
   }, []);
 
@@ -30,7 +34,9 @@ export default function AllCampaign() {
           All Campaigns
         </h1>
 
-        {campaigns.length === 0 ? (
+        {loading ? ( // Show loading indicator if loading is true
+          <div className="text-center">Loading campaigns...</div>
+        ) : campaigns.length === 0 ? ( // Show message if no campaigns available
           <div className="text-center">No campaigns available</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
