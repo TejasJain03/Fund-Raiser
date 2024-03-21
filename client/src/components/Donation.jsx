@@ -32,7 +32,6 @@ export default function Donation() {
     });
   };
 
-  
   return (
     <>
       <Navbar />
@@ -60,7 +59,6 @@ export default function Donation() {
             <p>Loading campaign data...</p>
           )}
         </div>
-
 
         <div className="md:w-full">
           <h2 className="text-2xl font-bold mb-8 text-center">
@@ -114,8 +112,9 @@ export default function Donation() {
               <input
                 type="tel"
                 id="phoneNumber"
-                onChange={handleChange}
+                pattern="[0-9]{10}"
                 required
+                title="Please enter a valid 10-digit phone number"
                 className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               />
             </div>
@@ -131,6 +130,7 @@ export default function Donation() {
                 id="amount"
                 onChange={handleChange}
                 required
+                min="1"
                 className="mt-1 p-3 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
               />
             </div>

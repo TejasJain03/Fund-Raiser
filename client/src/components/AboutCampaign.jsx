@@ -56,12 +56,10 @@ export default function AboutCampaign() {
                 <span className="font-bold">Goal Amount:</span> $
                 {campaign.goalAmount}
               </p>
-               {!isCampaignCompleted() || !isPastEndDate() && (
               <p className="text-gray-800 mb-4">
                 <span className="font-bold">Current Amount:</span> $
                 {campaign.currentAmount}
               </p>
-               )}
               <p className="text-gray-800 mb-6">
                 <span className="font-bold">Description:</span>{" "}
                 {campaign.description}
@@ -74,7 +72,7 @@ export default function AboutCampaign() {
                 <span className="font-bold">End Date:</span>{" "}
                 {new Date(campaign.endDate).toLocaleDateString()}
               </p>
-              {!isCampaignCompleted() || !isPastEndDate() ? (
+              {!isCampaignCompleted() && !isPastEndDate() ? (
                 <button
                   className="bg-yellow text-white px-4 py-2 rounded-md"
                   onClick={() => {
@@ -96,7 +94,7 @@ export default function AboutCampaign() {
       </div>
 
       <div className="container mx-auto my-8 p-8 bg-white rounded-md shadow-md">
-        <h2 className="text-3xl font-bold mb-6">Reviews</h2>
+        <h2 className="text-3xl font-bold mb-6">Reviews </h2>
         {reviews && reviews.length > 0 ? (
           <ul>
             {reviews.map((review, index) => (

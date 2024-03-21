@@ -71,6 +71,10 @@ const handleDeleteCampaign = (campaignId) => {
                 {campaign.goalAmount}
               </p>
               <p className="text-gray-800 mb-4">
+                <span className="font-bold">Current Amount:</span>{" "}
+                {campaign.currentAmount}
+              </p>
+              <p className="text-gray-800 mb-4">
                 <span className="font-bold">Start Date:</span>{" "}
                 {campaign.startDate.slice(0, 10)}
               </p>
@@ -147,7 +151,7 @@ const handleDeleteCampaign = (campaignId) => {
       </div>
 
       <div className="container mx-auto my-8 p-8 bg-white rounded-md shadow-md">
-        <h2 className="text-3xl font-bold mb-6">Reviews</h2>
+        <h2 className="text-3xl font-bold mb-6">Reviews </h2>
         {reviews && reviews.length > 0 ? (
           <ul>
             {reviews.map((review, index) => (

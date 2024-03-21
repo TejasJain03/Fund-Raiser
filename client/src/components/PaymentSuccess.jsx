@@ -9,7 +9,7 @@ function PaymentSuccess() {
 
   const handleSubmitReview = (name) => {
     axiosInstance
-      .post(`/${campaignId}/givereview`, {reviewBody:review,name:name})
+      .post(`/${campaignId}/givereview`, {reviewBody:review,name:name,campaignId:campaignId})
       .then(() => {
         navigate("/");
       })

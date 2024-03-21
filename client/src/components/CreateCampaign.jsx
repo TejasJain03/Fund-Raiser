@@ -54,7 +54,7 @@ export default function CreateCampaign() {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Error creating campaign. Please try again.");
+        toast.error(err.response.data.message);
         // navigate("/login");
       })
       .finally(() => {
@@ -138,6 +138,7 @@ export default function CreateCampaign() {
             <input
               type="number"
               id="goalAmount"
+              min={1}
               value={formData.goalAmount}
               onChange={handleChange}
               required
